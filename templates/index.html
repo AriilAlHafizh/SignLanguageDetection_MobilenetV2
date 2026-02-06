@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendeteksi Bahasa Isyarat</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Pendeteksi Bahasa Isyarat</h1>
+            <p>Gunakan kamera untuk mendeteksi huruf dalam bahasa isyarat</p>
+        </header>
+
+        <main>
+            <div class="camera-section">
+                <h2>Camera</h2>
+                <div class="video-container">
+                    <video id="webcam" autoplay playsinline></video>
+                    <canvas id="bboxCanvas" style="position: absolute; top: 0; left: 0;"></canvas>
+                    <canvas id="canvas" style="display: none;"></canvas>
+                </div>
+                
+                <div class="controls">
+                    <button id="startBtn" class="btn btn-primary">
+                        📷 Mulai Kamera
+                    </button>
+                    <button id="captureBtn" class="btn btn-success" disabled style="display: none;"> 
+                        📸 Deteksi
+                    </button>
+                    <button id="stopBtn" class="btn btn-danger" disabled style="display: none;"> 
+                        ⏹️ Stop
+                    </button>
+                </div>
+            </div>
+
+            <div class="result-section">
+                <h2>Hasil Deteksi</h2>
+                <div id="result" class="result-box">
+                    <div class="no-result">
+                        <p>Belum ada hasil deteksi</p>
+                        <p class="hint">Klik tombol "Deteksi" untuk mulai mendeteksi bahasa isyarat</p>
+                    </div>
+                </div>
+                
+                <div id="allPredictions" class="all-predictions" style="display: none;">
+                    <h3>Prediksi Lainnya:</h3>
+                    <div id="predictionList"></div>
+                </div>
+            </div>
+
+            <div class="history-section">
+                <h2>Riwayat Deteksi</h2>
+                <div id="history" class="history-container">
+                    <p class="no-history">Belum ada riwayat</p>
+                </div>
+                <button id="clearHistory" class="btn btn-secondary" style="display: none;">
+                    🗑️ Bersihkan Riwayat
+                </button>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2025 Sign Language Detector | Dibuat dengan Flask & TensorFlow</p>
+        </footer>
+    </div>
+
+    <script src="../static/js/main.js"></script>
+</body>
+</html>

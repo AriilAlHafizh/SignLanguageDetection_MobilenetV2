@@ -1,0 +1,374 @@
+/*
+ * ----------------------------------------
+ * 1. Base Styles and Reset
+ * ----------------------------------------
+ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Gunakan font yang bersih, misalnya Inter jika diimpor, atau default sans-serif */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f7f9; /* Latar belakang lebih netral dan gelap */
+    min-height: 100vh;
+    padding: 30px 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 1280px; /* Lebar lebih besar untuk menampilkan data */
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px; /* Sedikit kurangi radius untuk kesan formal */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Shadow lebih halus */
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+/*
+ * ----------------------------------------
+ * 2. Header and Main Layout
+ * ----------------------------------------
+ */
+header {
+    background: #1e40af; /* Warna Navy/Corporate Blue yang kuat */
+    color: white;
+    padding: 25px 40px; /* Padding disesuaikan */
+    text-align: left; /* Rata kiri untuk aplikasi data */
+}
+
+header h1 {
+    font-size: 2em;
+    margin-bottom: 5px;
+    letter-spacing: 0.5px;
+}
+
+.camera-section h2 {
+    color: #1e40af;
+    margin-bottom: 15px;
+    font-size: 1.6em;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 5px;
+}
+
+header p {
+    font-size: 0.95em;
+    opacity: 0.8;
+}
+
+main {
+    padding: 30px 40px;
+    display: flex; 
+    gap: 30px;
+}
+
+
+.data-analysis-section {
+    flex: 1.5;
+}
+
+.camera-section {
+    flex: 1; /* Proporsi untuk kamera/input */
+    margin-bottom: 0;
+}
+
+/*
+ * ----------------------------------------
+ * 3. Video and Controls
+ * ----------------------------------------
+ */
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    height: 500px;
+    margin: 0 0 20px 0; 
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    border: 1px solid #333;
+}
+
+#webcam, #bboxCanvas {
+    width: 100%; /* Pastikan keduanya mengisi container */
+    height: auto;
+    display: block;
+    transform: scaleX(-1); /* Efek mirror */
+}
+
+.controls {
+    display: flex;
+    justify-content: flex-start; /* Kontrol rata kiri */
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.btn {
+    padding: 10px 20px; /* Padding lebih kecil, lebih padat */
+    font-size: 0.95em;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: #3b82f6; /* Biru yang lebih standar */
+    color: white;
+}
+
+.btn-success {
+    background: #10b981;
+    color: white;
+}
+
+.btn-danger {
+    background: #ef4444;
+    color: white;
+}
+
+.btn-secondary {
+    background: #e5e7eb; /* Warna abu-abu terang */
+    color: #374151;
+    box-shadow: none;
+}
+.btn-secondary:hover:not(:disabled) {
+    background: #d1d5db;
+}
+
+.result-section, .history-section {
+    margin-bottom: 30px;
+}
+
+.result-section h2, .history-section h2 {
+    color: #1e40af;
+    margin-bottom: 15px;
+    font-size: 1.6em;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 5px;
+}
+
+.result-box {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 25px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #d1d5db; /* Border solid lebih formal */
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+.no-result {
+    text-align: center;
+    color: #6b7280;
+    padding: 10px;
+}
+
+.hint {
+    font-size: 0.85em;
+    margin-top: 5px;
+}
+
+.prediction-result {
+    text-align: center;
+    width: 100%;
+}
+
+.predicted-letter {
+    font-size: 5em; /* Ukuran huruf sedikit lebih kecil */
+    font-weight: 700;
+    color: #1e40af;
+    margin-bottom: 15px;
+    line-height: 1;
+}
+
+.confidence {
+    font-size: 1.2em;
+    color: #059669; /* Hijau yang lebih dalam */
+    margin-bottom: 8px;
+}
+
+.confidence-bar {
+    width: 90%;
+    max-width: 400px;
+    height: 25px;
+    background: #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 10px auto 0;
+}
+
+.confidence-fill {
+    height: 100%;
+    background: #3b82f6;
+    transition: width 0.5s ease;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9em;
+    justify-content: flex-start;
+}
+
+.all-predictions {
+    margin-top: 25px;
+    padding: 20px;
+    background: #f8fafc; /* Latar belakang untuk membedakan */
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.all-predictions h3 {
+    color: #1e40af;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.prediction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed #e5e7eb;
+}
+.prediction-item:last-child {
+    border-bottom: none;
+}
+
+.prediction-label {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #4b5563;
+}
+
+.prediction-confidence {
+    color: #059669;
+    font-weight: 600;
+    font-family: monospace; /* Font monospasi untuk nilai numerik */
+}
+
+/*
+ * ----------------------------------------
+ * 5. History Section
+ * ----------------------------------------
+ */
+.history-container {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 15px;
+    height: 250px;
+    overflow-y: auto;
+    border: 1px solid #d1d5db;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 8px;
+    background: #f8fafc;
+    border-radius: 6px;
+    border-left: 5px solid #3b82f6; /* Aksen warna */
+}
+
+.history-letter {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #1e40af;
+    width: 40px;
+    text-align: center;
+}
+
+.history-info {
+    flex-grow: 1;
+    margin-left: 15px;
+    line-height: 1.4;
+}
+
+.history-confidence {
+    color: #059669;
+    font-weight: 500;
+    font-size: 0.95em;
+}
+
+.history-time {
+    color: #6b7280;
+    font-size: 0.8em;
+    text-align: right;
+}
+
+#clearHistory {
+    margin-top: 15px;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+}
+
+/*
+ * ----------------------------------------
+ * 6. Footer and Responsiveness
+ * ----------------------------------------
+ */
+footer {
+    background: #e2e8f0;
+    padding: 15px;
+    text-align: center;
+    color: #4b5563;
+    font-size: 0.85em;
+}
+
+@media (max-width: 992px) {
+    /* Breakpoint yang lebih tinggi untuk layout 2 kolom */
+    main {
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px;
+    }
+
+    header {
+        padding: 20px 30px;
+    }
+    
+    .camera-section {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .controls {
+        justify-content: center;
+    }
+    
+    .btn {
+        width: auto;
+        flex-grow: 1;
+    }
+    
+    .predicted-letter {
+        font-size: 4em;
+    }
+    
+    .confidence-bar {
+        width: 100%;
+    }
+}
